@@ -7,7 +7,7 @@ create table students( student_id int primary key auto_increment,
                        contact_info varchar(255));
                        
 insert into students (name, gender, contact_info) values ('Kiruthika', 'Female', 'Mobile: 6381254260, address: Tenkasi'),
-														 ('Nagendran', 'Male', 'Mobile: 8072939994, address: Madurai'),
+							 ('Nagendran', 'Male', 'Mobile: 8072939994, address: Madurai'),
                                                          ('Vaishnavi', 'Female', 'Mobile: 4578349084, address: Erode'),
                                                          ('Manoj', 'Male', 'Mobile: 4536723896, address: Thirunelveli'),
                                                          ('Sneha', 'Female', 'Mobile: 3457289547, address: Trichy'),
@@ -29,7 +29,7 @@ create table genres( genre_id int primary key auto_increment,
                      genre_name varchar(50));
                      
 insert into genres( genre_name ) values ('Fiction'),
-										('Fantasy'),
+					('Fantasy'),
                                         ('Horror'),
                                         ('Romance'),
                                         ('Love'),
@@ -63,7 +63,7 @@ create table student_movie_interests( student_id int,
                                       
 insert into student_movie_interests( student_id, genre_id) values -- Kiruthika ( romance, Love , Mystery)
                                                                   (1, 4),
-																  (1, 5),
+								  (1, 5),
                                                                   (1, 10),
                                                                   -- Nagendran ( Fiction, Horror, Historical )
                                                                   (2, 1),
@@ -114,15 +114,15 @@ create table shopping_malls(mall_id int primary key auto_increment,
                             location varchar(100));
                             
 insert into shopping_malls ( mall_name, location) values ( 'Phoenix MarketCity', 'Velachery, chennai'),
-														 ( 'Express Avenue Mall', 'Royapettah, Chennai'),
+							 ( 'Express Avenue Mall', 'Royapettah, Chennai'),
                                                          ( 'VR Chennai', 'Anna Nagar, Chennai'),
                                                          ( 'Spencer Plaza', 'Mount Road, Chennai'),
                                                          ( 'Ampa Skywalk', 'Aminjikarai, Chennai'),
                                                          ( 'Chennai Citi Centre', 'Mylapore, Chennai'),
                                                          ( 'Forum Vijaya Mall', 'Vadapalani, Chennai'),
-														                             ( 'Marina Mall', 'Egattur, Chennai'),
+							 ( 'Marina Mall', 'Egattur, Chennai'),
                                                          ( 'Grand Square Mall', 'Velachery, Chennai'),
-														                             ( 'Saravana Stores The Crown Mall', 'Chromepet, Chennai');
+							 ( 'Saravana Stores The Crown Mall', 'Chromepet, Chennai');
                                                          
 select * from shopping_malls;
 +---------+--------------------------------+----------------------+
@@ -153,7 +153,7 @@ insert into beaches ( beach_name, location) values ( 'Marina Beach', 'Triplicane
                                                    ('Palavakkam Beach', 'Palavakkam, Chennai'),
                                                    ('Injambakkam Beach', 'Injambakkam, Chennai'),
                                                    ('Akkarai Beach', 'ECR, Chennai'),
-												                           ('VGP Beach', 'Injambakkam, Chennai'),
+						   ('VGP Beach', 'Injambakkam, Chennai'),
                                                    ('Santhome Beach', 'Santhome, Chennai'),
                                                    ('Uthandi Beach', 'Uthandi, Chennai');
                                                    
@@ -182,7 +182,7 @@ create table movies( movie_id int primary key auto_increment,
                      heroine_name varchar(100));
                      
 insert into movies ( movie_name, hero_name, heroine_name) values ('Vikram', 'Kamal Haasan', 'Sanjana Natarajan'),
-																 ('Master', 'Vijay', 'Malavika Mohanan'),
+								 ('Master', 'Vijay', 'Malavika Mohanan'),
                                                                  ('Thunivu', 'Ajith Kumar', 'Manju Warrier'),
                                                                  ('Varisu', 'Vijay', 'Rashmika Mandanna'),
                                                                  ('Jailer', 'Rajinikanth', 'Ramya Krishnan'),
