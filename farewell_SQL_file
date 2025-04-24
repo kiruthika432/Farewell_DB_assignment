@@ -1,0 +1,694 @@
+create database Farewell;
+use Farewell;
+======================================================================================================= 1, Students;=========================================================================================================================
+create table students( student_id int primary key auto_increment,
+                       name varchar(100),
+                       gender enum('Male','Female','Other'),
+                       contact_info varchar(255));
+                       
+insert into students (name, gender, contact_info) values ('Kiruthika', 'Female', 'Mobile: 6381254260, address: Tenkasi'),
+														 ('Nagendran', 'Male', 'Mobile: 8072939994, address: Madurai'),
+                                                         ('Vaishnavi', 'Female', 'Mobile: 4578349084, address: Erode'),
+                                                         ('Manoj', 'Male', 'Mobile: 4536723896, address: Thirunelveli'),
+                                                         ('Sneha', 'Female', 'Mobile: 3457289547, address: Trichy'),
+                                                         ('Rivera', 'Other', 'Mobile: 3467851386, address: Salem');
+                                                         
+select * from students;
++------------+-----------+--------+-------------------------------------------+
+| student_id | name      | gender | contact_info                              |
++------------+-----------+--------+-------------------------------------------+
+|          1 | Kiruthika | Female | Mobile: 6381254260, address: Tenkasi      |
+|          2 | Nagendran | Male   | Mobile: 8072939994, address: Madurai      |
+|          3 | Vaishnavi | Female | Mobile: 4578349084, address: Erode        |
+|          4 | Manoj     | Male   | Mobile: 4536723896, address: Thirunelveli |
+|          5 | Sneha     | Female | Mobile: 3457289547, address: Trichy       |
+|          6 | Rivera    | Other  | Mobile: 3467851386, address: Salem        |
++------------+-----------+--------+-------------------------------------------+
+==================================================================================================== 2, Movie Genres (Interest area)==========================================================================================================
+create table genres( genre_id int primary key auto_increment, 
+                     genre_name varchar(50));
+                     
+insert into genres( genre_name ) values ('Fiction'),
+										('Fantasy'),
+                                        ('Horror'),
+                                        ('Romance'),
+                                        ('Love'),
+                                        ('Thriller'),
+                                        ('Historical'),
+                                        ('Biography'),
+                                        ('non-fiction'),
+                                        ('Mystery');
+                                        
+select * from genres;
+
++----------+-------------+
+| genre_id | genre_name  |
++----------+-------------+
+|        1 | Fiction     |
+|        2 | Fantasy     |
+|        3 | Horror      |
+|        4 | Romance     |
+|        5 | Love        |
+|        6 | Thriller    |
+|        7 | Historical  |
+|        8 | Biography   |
+|        9 | Mystery     |
++----------+-------------+
+================================================================================================ 3, Student Movie Interest ( Many-to-Many )=================================================================================================
+create table student_movie_interests( student_id int,
+                                      genre_id int,
+                                      Primary key ( student_id, genre_id),
+                                      foreign key(student_id) references students(student_id),
+                                      foreign key(genre_id) references genres(genre_id));
+                                      
+insert into student_movie_interests( student_id, genre_id) values -- Kiruthika ( romance, Love , Mystery)
+                                                                  (1, 4),
+																  (1, 5),
+                                                                  (1, 10),
+                                                                  -- Nagendran ( Fiction, Horror, Historical )
+                                                                  (2, 1),
+                                                                  (2, 3),
+                                                                  (2, 7),
+                                                                  -- Vaishnavi( Fantacy, Romance)
+                                                                  (3, 2),
+                                                                  (3, 4),
+                                                                  -- Manoj ( Fiction, Thriller)
+                                                                  (4, 1),
+                                                                  (4, 6),
+                                                                  -- Sneha ( Biography, non-fiction, mystery)
+                                                                  (5, 8),
+                                                                  (5, 9),
+                                                                  (5, 10),
+                                                                  -- Rivera ( Fantacy, Horror, Thriller)
+                                                                  (6, 2),
+                                                                  (6, 3),
+                                                                  (6, 6);
+                                                                  
+select * from student_movie_interests;
+
++------------+----------+
+| student_id | genre_id |
++------------+----------+
+|          2 |        1 |
+|          4 |        1 |
+|          3 |        2 |
+|          6 |        2 |
+|          2 |        3 |
+|          6 |        3 |
+|          1 |        4 |
+|          3 |        4 |
+|          1 |        5 |
+|          4 |        6 |
+|          6 |        6 |
+|          2 |        7 |
+|          5 |        8 |
+|          5 |        9 |
+|          1 |       10 |
+|          5 |       10 |
++------------+----------+
+
+============================================================================================================ 4, Shopping Malls ===========================================================================================================
+
+create table shopping_malls(mall_id int primary key auto_increment,
+                            mall_name varchar(100),
+                            location varchar(100));
+                            
+insert into shopping_malls ( mall_name, location) values ( 'Phoenix MarketCity', 'Velachery, chennai'),
+														 ( 'Express Avenue Mall', 'Royapettah, Chennai'),
+                                                         ( 'VR Chennai', 'Anna Nagar, Chennai'),
+                                                         ( 'Spencer Plaza', 'Mount Road, Chennai'),
+                                                         ( 'Ampa Skywalk', 'Aminjikarai, Chennai'),
+                                                         ( 'Chennai Citi Centre', 'Mylapore, Chennai'),
+                                                         ( 'Forum Vijaya Mall', 'Vadapalani, Chennai'),
+														                             ( 'Marina Mall', 'Egattur, Chennai'),
+                                                         ( 'Grand Square Mall', 'Velachery, Chennai'),
+														                             ( 'Saravana Stores The Crown Mall', 'Chromepet, Chennai');
+                                                         
+select * from shopping_malls;
++---------+--------------------------------+----------------------+
+| mall_id | mall_name                      | location             |
++---------+--------------------------------+----------------------+
+|       1 | Phoenix MarketCity             | Velachery, chennai   |
+|       2 | Express Avenue Mall            | Royapettah, Chennai  |
+|       3 | VR Chennai                     | Anna Nagar, Chennai  |
+|       4 | Spencer Plaza                  | Mount Road, Chennai  |
+|       5 | Ampa Skywalk                   | Aminjikarai, Chennai |
+|       6 | Chennai Citi Centre            | Mylapore, Chennai    |
+|       7 | Forum Vijaya Mall              | Vadapalani, Chennai  |
+|       8 | Marina Mall                    | Egattur, Chennai     |
+|       9 | Grand Square Mall              | Velachery, Chennai   |
+|      10 | Saravana Stores The Crown Mall | Chromepet, Chennai   |
++---------+--------------------------------+----------------------+
+
+========================================================================================================= 5, Beaches =====================================================================================================================
+
+create table beaches( beach_id int primary key auto_increment,
+                      beach_name varchar(100),
+                      location varchar(100));
+                      
+insert into beaches ( beach_name, location) values ( 'Marina Beach', 'Triplicane, Cehnnai'),
+                                                   ( 'Elliot’s Beach', 'Besant Nagar, Chennai'),
+                                                   ('Thiruvanmiyur Beach', 'Thiruvanmiyur, Chennai'),
+                                                   ('Neelankarai Beach', 'Neelankarai, Chennai'),
+                                                   ('Palavakkam Beach', 'Palavakkam, Chennai'),
+                                                   ('Injambakkam Beach', 'Injambakkam, Chennai'),
+                                                   ('Akkarai Beach', 'ECR, Chennai'),
+												                           ('VGP Beach', 'Injambakkam, Chennai'),
+                                                   ('Santhome Beach', 'Santhome, Chennai'),
+                                                   ('Uthandi Beach', 'Uthandi, Chennai');
+                                                   
+select * from beaches;
+
++----------+---------------------+------------------------+
+| beach_id | beach_name          | location               |
++----------+---------------------+------------------------+
+|        1 | Marina Beach        | Triplicane, Cehnnai    |
+|        2 | Elliot’s Beach      | Besant Nagar, Chennai  |
+|        3 | Thiruvanmiyur Beach | Thiruvanmiyur, Chennai |
+|        4 | Neelankarai Beach   | Neelankarai, Chennai   |
+|        5 | Palavakkam Beach    | Palavakkam, Chennai    |
+|        6 | Injambakkam Beach   | Injambakkam, Chennai   |
+|        7 | Akkarai Beach       | ECR, Chennai           |
+|        8 | VGP Beach           | Injambakkam, Chennai   |
+|        9 | Santhome Beach      | Santhome, Chennai      |
+|       10 | Uthandi Beach       | Uthandi, Chennai       |
++----------+---------------------+------------------------+
+
+==================================================================================================== 6, Movies ( with Hero and Heroine )====================================================================================================
+
+create table movies( movie_id int primary key auto_increment,
+                     movie_name varchar(100),
+                     hero_name varchar(100),
+                     heroine_name varchar(100));
+                     
+insert into movies ( movie_name, hero_name, heroine_name) values ('Vikram', 'Kamal Haasan', 'Sanjana Natarajan'),
+																 ('Master', 'Vijay', 'Malavika Mohanan'),
+                                                                 ('Thunivu', 'Ajith Kumar', 'Manju Warrier'),
+                                                                 ('Varisu', 'Vijay', 'Rashmika Mandanna'),
+                                                                 ('Jailer', 'Rajinikanth', 'Ramya Krishnan'),
+                                                                 ('Doctor', 'Sivakarthikeyan', 'Priyanka Arul Mohan'),
+                                                                 ('Love Today', 'Pradeep Ranganathan', 'Ivana'),
+                                                                 ('Ponniyin Selvan I', 'Jayam Ravi', 'Aishwarya Rai Bachchan'),
+                                                                 ('Maanaadu', 'Silambarasan', 'Kalyani Priyadarshan'),
+                                                                 ('Beast', 'Vijay', 'Pooja Hegde');
+                                                                 
+select * from movies;
+
++----------+-------------------+---------------------+------------------------+
+| movie_id | movie_name        | hero_name           | heroine_name           |
++----------+-------------------+---------------------+------------------------+
+|        1 | Vikram            | Kamal Haasan        | Sanjana Natarajan      |
+|        2 | Master            | Vijay               | Malavika Mohanan       |
+|        3 | Thunivu           | Ajith Kumar         | Manju Warrier          |
+|        4 | Varisu            | Vijay               | Rashmika Mandanna      |
+|        5 | Jailer            | Rajinikanth         | Ramya Krishnan         |
+|        6 | Doctor            | Sivakarthikeyan     | Priyanka Arul Mohan    |
+|        7 | Love Today        | Pradeep Ranganathan | Ivana                  |
+|        8 | Ponniyin Selvan I | Jayam Ravi          | Aishwarya Rai Bachchan |
+|        9 | Maanaadu          | Silambarasan        | Kalyani Priyadarshan   |
+|       10 | Beast             | Vijay               | Pooja Hegde            |
++----------+-------------------+---------------------+------------------------+
+
+=================================================================================================== 7, Favorite Actors and Actresses =======================================================================================================
+
+create table student_favorites( student_id int primary key,
+                                favorite_actor varchar(100),
+                                favorite_actress varchar(100),
+                                foreign key(student_id) references students(student_id));
+                                
+insert into student_favorites( student_id, favorite_actor, favorite_actress) values (1, 'Vijay', 'Nayanthara'),
+                                                                                    (2, 'Ajith Kumar', 'Trisha'),
+                                                                                    (3, 'Sivakarthikeyan', 'Keerthy Suresh'),
+                                                                                    (4, 'Vijay', 'Sai Pallavi'),
+                                                                                    (5, 'Rajinikanth', 'Aishwarya Rai'),
+                                                                                    (6, 'Vikram', 'Trisha');
+                                                                                    
+select * from student_favorites;
+
++------------+-----------------+------------------+
+| student_id | favorite_actor  | favorite_actress |
++------------+-----------------+------------------+
+|          1 | Vijay           | Nayanthara       |
+|          2 | Ajith Kumar     | Trisha           |
+|          3 | Sivakarthikeyan | Keerthy Suresh   |
+|          4 | Vijay           | Sai Pallavi      |
+|          5 | Rajinikanth     | Aishwarya Rai    |
+|          6 | Vikram          | Trisha           |
++------------+-----------------+------------------+
+
+============================================================================================== 8, Student's Favorite Malls ( many-to-many )=================================================================================================
+
+create table student_fav_malls( student_id int,
+                                mall_id int,
+                                primary key(student_id, mall_id),
+                                foreign key(student_id) references students(student_id),
+                                foreign key(mall_id) references shopping_malls(mall_id));
+                                
+insert into student_fav_malls( student_id, mall_id) values -- Kiruthika ( Phoenix Marketcity, Express Avenue)
+                                                           (1, 1),
+                                                           (1, 2),
+                                                           -- Nagendran( Spencer Plaza, Chennai Citi Center )
+                                                           (2, 4),
+                                                           (2, 6),
+                                                           -- Vaishnavi ( Express Avenue, Ampa Shywalk, Marina Mall)
+                                                           (3, 2),
+                                                           (3, 5),
+                                                           (3, 8),
+                                                           -- Manoj( VR Chennai, Forum Vijaya Mall)
+                                                           (4, 3),
+                                                           (4, 7),
+                                                           -- Sneha ( Phoenix MarketCity, Grand Square Mall)
+                                                           (5, 1),
+                                                           (5, 9),
+                                                           (5, 6),
+                                                           -- Rivera( Chennai Citi Center, Saravana Stores the crown Mall)
+                                                           (6, 6),
+                                                           (6, 10);
+                                                           
+select * from student_fav_malls;
+
++------------+---------+
+| student_id | mall_id |
++------------+---------+
+|          1 |       1 |
+|          5 |       1 |
+|          1 |       2 |
+|          3 |       2 |
+|          4 |       3 |
+|          2 |       4 |
+|          3 |       5 |
+|          2 |       6 |
+|          5 |       6 |
+|          6 |       6 |
+|          4 |       7 |
+|          3 |       8 |
+|          5 |       9 |
+|          6 |      10 |
++------------+---------+
+
+============================================================================================ 9, Student's Favorite Beaches (many-to-many) ==================================================================================================
+
+create table student_fav_beaches( student_id int,
+                                  beach_id int,
+                                  primary key(student_id, beach_id),
+                                  foreign key(student_id) references students(student_id),
+                                  foreign key(beach_id) references beaches(beach_id));
+                                  
+insert into student_fav_beaches (student_id, beach_id) values -- Kiruthika (Marina Beach, Elliot's Beach, Neelankarai Beach)
+                                                              (1, 1),
+                                                              (1, 2),
+                                                              (1, 4),
+                                                              -- Nagendran (Marina Beach, Thiruvanmiyur Beach)
+                                                              (2, 1),
+                                                              (2, 3),
+                                                              -- Vaishnavi(Elliot's Beach, Palavakkam Beach, Akkarai Beach)
+                                                              (3, 2),
+                                                              (3, 5),
+                                                              (3, 7),
+                                                              -- Manoj(Thiruvanmiyur Beach, Injambakkam Beach)
+                                                              (4, 3),
+                                                              (4, 6),
+                                                              (4, 1),
+                                                              -- Sneha (Neelankarai Beach, VGP Beach)
+                                                              (5, 4),
+                                                              (5, 8),
+                                                              -- Rivera (Santhome Beach, Uthandi Beach)
+                                                              (6, 9),
+                                                              (6, 10);
+                                                              
+select * from student_fav_beaches;
+
++------------+----------+
+| student_id | beach_id |
++------------+----------+
+|          1 |        1 |
+|          2 |        1 |
+|          4 |        1 |
+|          1 |        2 |
+|          3 |        2 |
+|          2 |        3 |
+|          4 |        3 |
+|          1 |        4 |
+|          5 |        4 |
+|          3 |        5 |
+|          4 |        6 |
+|          3 |        7 |
+|          5 |        8 |
+|          6 |        9 |
+|          6 |       10 |
++------------+----------+
+
+======================================================================================= 10, Student's Favorite Movies (many-to-many) =======================================================================================================
+
+create table student_fav_movies( student_id int,
+                                 movie_id int, 
+                                 primary key(student_id, movie_id),
+                                 foreign key(student_id) references students(student_id),
+                                 foreign key(movie_id) references movies(movie_id));
+                     
+insert into student_fav_movies (student_id, movie_id) values -- Kiruthika (Master, Varisu, Love Today)
+                                                             (1, 2),
+                                                             (1, 4),
+                                                             (1, 7),
+                                                             -- Nagendran (Vikram, Thunivu)
+                                                             (2, 1),
+                                                             (2, 3),
+                                                             -- Vaishnavi(Master, Doctor, Maanadu)
+                                                             (3, 2),
+                                                             (3, 6),
+                                                             (3, 9),
+                                                             -- Manoj(Vikram, Jailer)
+                                                             (4, 1),
+                                                             (4, 5),
+                                                             -- Sneha(Ponniyin Selvan I, Maanadu)
+                                                             (5, 8),
+                                                             (5, 9),
+                                                             -- Rivera(Thunivu, Doctor, Beast)
+                                                             (6, 3),
+                                                             (6, 6),
+                                                             (6, 10);
+                                                             
+select * from student_fav_movies;
+
++------------+----------+
+| student_id | movie_id |
++------------+----------+
+|          2 |        1 |
+|          4 |        1 |
+|          1 |        2 |
+|          3 |        2 |
+|          2 |        3 |
+|          6 |        3 |
+|          1 |        4 |
+|          4 |        5 |
+|          3 |        6 |
+|          6 |        6 |
+|          1 |        7 |
+|          5 |        8 |
+|          3 |        9 |
+|          5 |        9 |
+|          6 |       10 |
++------------+----------+
+
+======================================================================================================== I Excercise ==========================================================================================================================
+
+-------------------------------------------------------------------------- 1, Friendship and Grouping by Common interests------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------1.1, Find students who share similar movie genres (eg., Action or Romance lovers)-------------------------------------------------------------------
+
+select genres.genre_name, group_concat(students.name separator', ') as students_likes
+from student_movie_interests
+join genres on student_movie_interests.genre_id = genres.genre_id
+join students on student_movie_interests.student_id = students.student_id
+group by genres.genre_name;
+
+
++------------+------------------------------------+
+| genre_name | students_likes                     |
++------------+------------------------------------+
+| Biography  | Sneha                              |
+| Fantasy    | Vaishnavi, Rivera                  |
+| Fiction    | Kiruthika, Nagendran, Manoj, Sneha |
+| Historical | Nagendran                          |
+| Horror     | Nagendran, Rivera                  |
+| Love       | Kiruthika                          |
+| Mystery    | Sneha                              |
+| Romance    | Kiruthika, Vaishnavi               |
+| Thriller   | Manoj, Rivera                      |
++------------+------------------------------------+
+
+---------------------------------------------------------------------------------- 1.2, Group students by favorite actor or actresses - greate for forming mini fan clubs!-------------------------------------------------------------
+---------------------------------------------------------------------------------- 1.2.1, Students favorite actors --------------------------------------------------------------------------------------------------------------------
+
+select student_favorites.favorite_actor as actor_name,group_concat(students.name separator', ') as students_fav
+from student_favorites 
+join students on student_favorites.student_id = students.student_id 
+group by student_favorites.favorite_actor;
+
++-----------------+------------------+
+| actor_name      | students_fav     |
++-----------------+------------------+
+| Ajith Kumar     | Nagendran        |
+| Rajinikanth     | Sneha            |
+| Sivakarthikeyan | Vaishnavi        |
+| Vijay           | Kiruthika, Manoj |
+| Vikram          | Rivera           |
++-----------------+------------------+
+
+------------------------------------------------------------------------------------ 1.2.2, Students favorite actresses -------------------------------------------------------------------------------------------------------------------
+
+select student_favorites.favorite_actress as actress_name, group_concat(students.name separator', ') as students_fav
+from student_favorites
+join students on student_favorites.student_id = students.student_id
+group by student_favorites.favorite_actress;
+
++----------------+-------------------+
+| actress_name   | students_fav      |
++----------------+-------------------+
+| Aishwarya Rai  | Sneha             |
+| Keerthy Suresh | Vaishnavi         |
+| Nayanthara     | Kiruthika         |
+| Sai Pallavi    | Manoj             |
+| Trisha         | Nagendran, Rivera |
++----------------+-------------------+
+
+--------------------------------------------------------------------------------- 1.3, Suggest ideal friend groups who share similar tastes in entertainment and hangout spots.------------------------------------------------------------
+
+SELECT 
+    GROUP_CONCAT(s.name) AS student_names,
+    sm.mall_name,
+    b.beach_name,
+    m.movie_name
+FROM students s
+JOIN student_fav_malls sfm ON s.student_id = sfm.student_id
+JOIN student_fav_beaches sfb ON s.student_id = sfb.student_id
+JOIN student_fav_movies sfmv ON s.student_id = sfmv.student_id
+
+JOIN shopping_malls sm ON sm.mall_id = sfm.mall_id
+JOIN beaches b ON b.beach_id = sfb.beach_id
+JOIN movies m ON m.movie_id = sfmv.movie_id
+
+GROUP BY sfm.mall_id, sfb.beach_id, sfmv.movie_id
+HAVING COUNT(*) >= 2;
+
++---------------------+---------------------+------------------+------------+
+| student_names       | mall_name           | beach_name       | movie_name |
++---------------------+---------------------+------------------+------------+
+| Vaishnavi,Kiruthika | Express Avenue Mall | Elliot’s Beach   | Master     |
++---------------------+---------------------+------------------+------------+
+
+
+-------------------------------------------------------------------------------------2, Personalized Meetup Suggestion --------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------ 2.1, Common favorite beaches --------------------------------------------------------------------------------------------------------------------------
+
+select beaches.beach_name, count(student_fav_beaches.beach_id) as max_fav_beaches,
+group_concat(students.name separator', ') as student_name
+from student_fav_beaches
+join beaches
+on student_fav_beaches.beach_id = beaches.beach_id
+join students on student_fav_beaches.student_id = students.student_id
+group by beaches.beach_id
+order by max_fav_beaches desc limit 1;
+
++--------------+-----------------+-----------------------------+
+| beach_name   | max_fav_beaches | student_name                |
++--------------+-----------------+-----------------------------+
+| Marina Beach |               3 | Kiruthika, Nagendran, Manoj |
++--------------+-----------------+-----------------------------+
+
+------------------------------------------------------------------------------------- 2.2, Common favorite Shopping malls ------------------------------------------------------------------------------------------------------------------
+
+select shopping_malls.mall_name, count(student_fav_malls.mall_id) as max_fav_mall,
+group_concat(students.name separator', ') as students_name
+from student_fav_malls
+join shopping_malls
+on student_fav_malls.mall_id = shopping_malls.mall_id
+join students on student_fav_malls.student_id = students.student_id
+group by shopping_malls.mall_name
+order by max_fav_mall desc limit 1;
+
++---------------------+--------------+--------------------------+
+| mall_name           | max_fav_mall | students_name            |
++---------------------+--------------+--------------------------+
+| Chennai Citi Centre |            3 | Nagendran, Sneha, Rivera |
++---------------------+--------------+--------------------------+
+
+---------------------------------------------------------------------------------------- 2.3, Common favorite Genre ------------------------------------------------------------------------------------------------------------------------
+
+select genres.genre_name,
+count(student_movie_interests.student_id) as total_students, 
+group_concat(students.name separator', ') as students_name
+from student_movie_interests
+join genres
+on student_movie_interests.genre_id = genres.genre_id
+join students on student_movie_interests.student_id = students.student_id
+group by genres.genre_name
+order by total_students desc limit 1;
+
++------------+----------------+------------------------------------+
+| genre_name | total_students | students_name                      |
++------------+----------------+------------------------------------+
+| Fiction    |              4 | Kiruthika, Nagendran, Manoj, Sneha |
++------------+----------------+------------------------------------+
+
+------------------------------------------------------------------------------------- 3, Popular Culture Insights---------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------- 3.1, Most liked actor/actress ------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------- 3.3.1, Most liked actor ------------------------------------------------------------------------------------------------------------------------------
+
+select student_favorites.favorite_actor,
+group_concat(students.name separator ', ') as student_who_like,
+count(student_favorites.student_id) as total_likes
+from student_favorites
+join students on student_favorites.student_id = students.student_id
+group by student_favorites.favorite_actor
+order by total_likes desc limit 1;
+
++----------------+------------------+-------------+
+| favorite_actor | student_who_like | total_likes |
++----------------+------------------+-------------+
+| Vijay          | Kiruthika, Manoj |           2 |
++----------------+------------------+-------------+
+
+----------------------------------------------------------------------------------- 3.1.2, Most liked Actress ------------------------------------------------------------------------------------------------------------------------------
+
+select student_favorites.favorite_actress, 
+group_concat(students.name separator ', ') as students_who_like,
+count(student_favorites.student_id) as total_likes
+from student_favorites
+join students on student_favorites.student_id = students.student_id
+group by student_favorites.favorite_actress
+order by total_likes desc limit 1;
+
++------------------+-------------------+-------------+
+| favorite_actress | students_who_like | total_likes |
++------------------+-------------------+-------------+
+| Trisha           | Nagendran, Rivera |           2 |
++------------------+-------------------+-------------+
+
+---------------------------------------------------------------------------------- 3.2, Most popular Movie genres --------------------------------------------------------------------------------------------------------------------------
+
+select genres.genre_name,
+group_concat(students.name separator ', ') as students_who_like,
+count(student_movie_interests.student_id) as total_likes
+from student_movie_interests
+join genres on student_movie_interests.genre_id = genres.genre_id
+join students on student_movie_interests.student_id = students.student_id
+group by genres.genre_name
+order by total_likes desc limit 1;
+
++------------+------------------------------------+-------------+
+| genre_name | students_who_like                  | total_likes |
++------------+------------------------------------+-------------+
+| Fiction    | Kiruthika, Nagendran, Manoj, Sneha |           4 |
++------------+------------------------------------+-------------+
+
+------------------------------------------------------------------------------- 3.3, Top 5 movies currently --------------------------------------------------------------------------------------------------------------------------------
+
+select movies.movie_name,
+count(student_fav_movies.student_id) as total_likes,
+group_concat(students.name separator ' ,') as students_who_like
+from student_fav_movies
+join movies on student_fav_movies.movie_id = movies.movie_id
+join students on student_fav_movies.student_id = students.student_id
+group by movies.movie_name
+order by total_likes desc
+limit 5;
+
++------------+-------------+----------------------+
+| movie_name | total_likes | students_who_like    |
++------------+-------------+----------------------+
+| Doctor     |           2 | Vaishnavi ,Rivera    |
+| Maanaadu   |           2 | Vaishnavi ,Sneha     |
+| Master     |           2 | Kiruthika ,Vaishnavi |
+| Thunivu    |           2 | Nagendran ,Rivera    |
+| Vikram     |           2 | Nagendran ,Manoj     |
++------------+-------------+----------------------+
+
+=================================================================================================== II Exercise ============================================================================================================================
+------------------------------------------------------------------------------------------------- 1, Who love romantic movie? --------------------------------------------------------------------------------------------------------------
+
+select students.name as student_name
+from student_movie_interests
+join genres
+on student_movie_interests.genre_id = genres.genre_id
+join students
+on student_movie_interests.student_id = students.student_id
+where genres.genre_name = 'Romance';
+
++--------------+
+| student_name |
++--------------+
+| Kiruthika    |
+| Vaishnavi    |
++--------------+
+
+--------------------------------------------------------------------------------------------------2, Which beach is most popular? ----------------------------------------------------------------------------------------------------------
+
+select beaches.beach_name,
+count(student_fav_beaches.student_id) as total_likes,
+group_concat(students.name separator ' ,') as students_who_like
+from student_fav_beaches
+join beaches
+on student_fav_beaches.beach_id = beaches.beach_id
+join students
+on student_fav_beaches.student_id = students.student_id
+group by beaches.beach_name
+order by total_likes desc
+limit 1;
+
++--------------+-------------+-----------------------------+
+| beach_name   | total_likes | students_who_like           |
++--------------+-------------+-----------------------------+
+| Marina Beach |           3 | Kiruthika ,Nagendran ,Manoj |
++--------------+-------------+-----------------------------+
+
+----------------------------------------------------------------------------------------------- 3, Top favorite actors ----------------------------------------------------------------------------------------------------------------------
+
+select student_favorites.favorite_actor,
+count(student_favorites.student_id) as total_fans,
+group_concat(students.name SEPARATOR ', ') as students_who_like
+from student_favorites
+join students 
+on student_favorites.student_id = students.student_id
+group by student_favorites.favorite_actor
+order by total_fans desc limit 1;
+
++----------------+------------+-------------------+
+| favorite_actor | total_fans | students_who_like |
++----------------+------------+-------------------+
+| Vijay          |          2 | Kiruthika, Manoj  |
++----------------+------------+-------------------+
+
+------------------------------------------------------------------------------------------- 4, Most agreed on Movie ------------------------------------------------------------------------------------------------------------------------
+
+select movies.movie_name,
+count(student_fav_movies.student_id) as total_votes,
+group_concat(students.name separator ' ,') as students_who_like
+from student_fav_movies
+join movies
+on student_fav_movies.movie_id = movies.movie_id
+join students
+on student_fav_movies.student_id = students.student_id
+group by movies.movie_name
+order by total_votes desc limit 1;
+
++------------+-------------+-------------------+
+| movie_name | total_votes | students_who_like |
++------------+-------------+-------------------+
+| Vikram     |           2 | Nagendran ,Manoj  |
++------------+-------------+-------------------+
+
+
+=====*******************************************************************************************************************************************************************************************************************************========
+
+
+
+
+
+
+
+
+
+
+
+
+
