@@ -1,0 +1,101 @@
+create database Stall;
+use Stall;
+create table Multishop(foodOrder_ID int primary key auto_increment, foodItem_name varchar(20), foodItem_price decimal(5,2),foodItem_quantity int);
+insert into Multishop (foodItem_name, foodItem_price, foodItem_quantity) values ( 'Fries', 39.99, 5),
+                                                                                             ( 'Noodles', 99.99, 2),
+                                                                                             ( 'coke', 30.05, 3),
+                                                                                             ( 'Fries', 39.99, 5),
+																							                                               ( 'Ice cream', 40.00, 4),
+                                                                                             ( 'Fries', 39.99, 5),
+                                                                                             ( 'Coffee', 25.25, 1),
+                                                                                             ( 'Noodles', 99.99, 5),
+                                                                                             ( 'Ice cream', 40.00, 7),
+                                                                                             ( 'coke', 30.05, 4),
+                                                                                             ( 'coke', 30.05, 8),
+                                                                                             ( 'Ice cream', 40.00, 3),
+                                                                                             ( 'Noodles', 99.99, 8),
+                                                                                             ( 'Fries', 39.99, 4),
+                                                                                             ( 'coke', 30.05, 7),
+                                                                                             ( 'Noodles', 99.99, 3),
+                                                                                             ( 'Fries', 39.99, 9),
+                                                                                             ( 'coke', 30.05, 2),
+                                                                                             ( 'Ice cream', 40.00, 6),
+                                                                                             ( 'coke', 30.05, 4),
+                                                                                             ( 'Noodles', 99.99, 4),
+                                                                                             ( 'Fries', 39.99, 8),
+                                                                                             ( 'Ice cream', 40.00, 3),
+                                                                                             ( 'coke', 30.05, 8),
+                                                                                             ( 'Ice cream', 40.00, 4),
+                                                                                             ( 'Noodles', 99.99, 5),
+                                                                                             ( 'Fries', 39.99, 8),
+                                                                                             ( 'Ice cream', 40.00, 3);
+                                                                                             
+select * from Multishop;
+
++--------------+---------------+----------------+-------------------+
+| foodOrder_ID | foodItem_name | foodItem_price | foodItem_quantity |
++--------------+---------------+----------------+-------------------+
+|            1 | Fries         |          39.99 |                 5 |
+|            2 | Noodles       |          99.99 |                 2 |
+|            3 | coke          |          30.05 |                 3 |
+|            4 | Fries         |          39.99 |                 5 |
+|            5 | Ice cream     |          40.00 |                 4 |
+|            6 | Fries         |          39.99 |                 5 |
+|            7 | Coffee        |          25.25 |                 1 |
+|            8 | Noodles       |          99.99 |                 5 |
+|            9 | Ice cream     |          40.00 |                 7 |
+|           10 | coke          |          30.05 |                 4 |
+|           11 | coke          |          30.05 |                 8 |
+|           12 | Ice cream     |          40.00 |                 3 |
+|           13 | Noodles       |          99.99 |                 8 |
+|           14 | Fries         |          39.99 |                 4 |
+|           15 | coke          |          30.05 |                 7 |
+|           16 | Noodles       |          99.99 |                 3 |
+|           17 | Fries         |          39.99 |                 9 |
+|           18 | coke          |          30.05 |                 2 |
+|           19 | Ice cream     |          40.00 |                 6 |
+|           20 | coke          |          30.05 |                 4 |
+|           21 | Noodles       |          99.99 |                 4 |
+|           22 | Fries         |          39.99 |                 8 |
+|           23 | Ice cream     |          40.00 |                 3 |
+|           24 | coke          |          30.05 |                 8 |
+|           25 | Ice cream     |          40.00 |                 4 |
+|           26 | Noodles       |          99.99 |                 5 |
+|           27 | Fries         |          39.99 |                 8 |
+|           28 | Ice cream     |          40.00 |                 3 |
++--------------+---------------+----------------+-------------------+
+
+------------------------------------------------------------------------------------------ 1, total quantity sold and total sales amount -----------------------------------------------------------------------------------------------------
+select foodItem_name,
+                     sum(foodItem_quantity) as total_quantity,
+                     sum(foodItem_price * foodItem_quantity) as total_sales
+                     from
+                     Multishop
+                     group by
+                     foodItem_name;
+
++---------------+----------------+-------------+
+| foodItem_name | total_quantity | total_sales |
++---------------+----------------+-------------+
+| Fries         |             44 |     1759.56 |
+| Noodles       |             27 |     2699.73 |
+| coke          |             36 |     1081.80 |
+| Ice cream     |             30 |     1200.00 |
+| Coffee        |              1 |       25.25 |
++---------------+----------------+-------------+
+
+--------------------------------------------------------------------------------------- 2, Sales amount and quantity sold for single item -----------------------------------------------------------------------------------------------------
+
+select foodItem_name, sum(foodItem_quantity) as total_quantity_sold,
+                      sum(foodItem_price * foodItem_quantity) as total_sales_amount
+                      from
+                      Multishop
+                      where
+                      foodItem_name = 'Fries';
+
++---------------+---------------------+--------------------+
+| foodItem_name | total_quantity_sold | total_sales_amount |
++---------------+---------------------+--------------------+
+| Fries         |                  44 |            1759.56 |
++---------------+---------------------+--------------------+
+
