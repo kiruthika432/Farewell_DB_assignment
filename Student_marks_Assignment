@@ -2,7 +2,7 @@ create database Students;
 use Students;
 create table Student_Marks(Register_number int primary key, Student_name varchar(20), Tamil int, English int, Maths int, Science int, Social int);
 insert into Student_Marks(Register_number, Student_name, Tamil, English, Maths, Science, Social) values (101,'Kiruthika',97, 93, 97, 97, 93),
-																										                                                    (102, 'Nagu', 90, 98, 95, 97, 99),
+												        (102, 'Nagu', 90, 98, 95, 97, 99),
                                                                                                         (103, 'Bala', 89, 90, 96, 96, 99),
                                                                                                         (104, 'Madhu', 98, 96, 94, 90, 95),
                                                                                                         (105, 'Guru', 56, 89, 90, 17, 96),
