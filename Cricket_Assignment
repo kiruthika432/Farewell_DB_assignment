@@ -1,0 +1,54 @@
+create database Cricket;
+use Cricket;
+create table Cricket_players( Player_ID int primary key, Player_name varchar(20), Team_name varchar(10), Captain_ID int);
+insert into Cricket_players(Player_ID, Player_name, Team_name, Captain_ID) values  ( 01, 'Rohit Sharma', 'IND', NULL),
+																				   ( 02, 'Jos Buttler', 'ENG', NULL),
+                                                                                   ( 03, 'Jasprit Bumrah', 'IND', 01),
+                                                                                   ( 04, 'Pat Cummins', 'AUS', NULL),
+                                                                                   ( 05, 'Steve Smith', 'AUS', 04),
+                                                                                   ( 06, 'David Warner', 'AUS', 04),
+                                                                                   ( 07, 'Virat Kohli', 'IND', 01),
+                                                                                   ( 08, 'Ben Stokes', 'ENG', 02);
+																			
+select * from Cricket_players;
+
++-----------+----------------+-----------+------------+
+| Player_ID | Player_name    | Team_name | Captain_ID |
++-----------+----------------+-----------+------------+
+|         1 | Rohit Sharma   | IND       |       NULL |
+|         2 | Jos Buttler    | ENG       |       NULL |
+|         3 | Jasprit Bumrah | IND       |          1 |
+|         4 | Pat Cummins    | AUS       |       NULL |
+|         5 | Steve Smith    | AUS       |          4 |
+|         6 | David Warner   | AUS       |          4 |
+|         7 | Virat Kohli    | IND       |          1 |
+|         8 | Ben Stokes     | ENG       |          2 |
++-----------+----------------+-----------+------------+
+
+
+SELECT 
+    p.Player_ID,
+    p.Player_name,
+    p.Captain_ID,
+    c.Player_name AS Captain_name
+FROM 
+    Cricket_players p
+LEFT JOIN 
+    Cricket_players c ON p.Captain_ID = c.Player_ID;
+
+
++-----------+----------------+------------+--------------+
+| Player_ID | Player_name    | Captain_ID | Captain_name |
++-----------+----------------+------------+--------------+
+|         1 | Rohit Sharma   |       NULL | NULL         |
+|         2 | Jos Buttler    |       NULL | NULL         |
+|         3 | Jasprit Bumrah |          1 | Rohit Sharma |
+|         4 | Pat Cummins    |       NULL | NULL         |
+|         5 | Steve Smith    |          4 | Pat Cummins  |
+|         6 | David Warner   |          4 | Pat Cummins  |
+|         7 | Virat Kohli    |          1 | Rohit Sharma |
+|         8 | Ben Stokes     |          2 | Jos Buttler  |
++-----------+----------------+------------+--------------+
+
+
+
