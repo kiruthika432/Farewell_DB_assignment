@@ -2,7 +2,7 @@ create database Cricket;
 use Cricket;
 create table Cricket_players( Player_ID int primary key, Player_name varchar(20), Team_name varchar(10), Captain_ID int);
 insert into Cricket_players(Player_ID, Player_name, Team_name, Captain_ID) values  ( 01, 'Rohit Sharma', 'IND', NULL),
-																				   ( 02, 'Jos Buttler', 'ENG', NULL),
+							                           ( 02, 'Jos Buttler', 'ENG', NULL),
                                                                                    ( 03, 'Jasprit Bumrah', 'IND', 01),
                                                                                    ( 04, 'Pat Cummins', 'AUS', NULL),
                                                                                    ( 05, 'Steve Smith', 'AUS', 04),
