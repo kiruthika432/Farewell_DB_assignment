@@ -1,0 +1,63 @@
+create database Students;
+use Students;
+create table Student_Marks(Register_number int primary key, Student_name varchar(20), Tamil int, English int, Maths int, Science int, Social int);
+insert into Student_Marks(Register_number, Student_name, Tamil, English, Maths, Science, Social) values (101,'Kiruthika',97, 93, 97, 97, 93),
+																										                                                    (102, 'Nagu', 90, 98, 95, 97, 99),
+                                                                                                        (103, 'Bala', 89, 90, 96, 96, 99),
+                                                                                                        (104, 'Madhu', 98, 96, 94, 90, 95),
+                                                                                                        (105, 'Guru', 56, 89, 90, 17, 96),
+                                                                                                        (106, 'Subash', 90, 96, 76, 89, 94),
+                                                                                                        (107, 'Vaishu', 87, 29, 94, 89, 70),
+                                                                                                        (108, 'Sneha', 89, 78, 90, 95, 85),
+                                                                                                        (109, 'sheka', 90, 99, 94, 68, 79),
+                                                                                                        (110, 'Rudhran', 90, 98, 97, 96, 94);
+select * from Student_Marks;
+
++-----------------+--------------+-------+---------+-------+---------+--------+
+| Register_number | Student_name | Tamil | English | Maths | Science | Social |
++-----------------+--------------+-------+---------+-------+---------+--------+
+|             101 | Kiruthika    |    97 |      93 |    97 |      97 |     93 |
+|             102 | Nagu         |    90 |      98 |    95 |      97 |     99 |
+|             103 | Bala         |    89 |      90 |    96 |      96 |     99 |
+|             104 | Madhu        |    98 |      96 |    94 |      90 |     95 |
+|             105 | Guru         |    56 |      89 |    90 |      17 |     96 |
+|             106 | Subash       |    90 |      96 |    76 |      89 |     94 |
+|             107 | Vaishu       |    87 |      29 |    94 |      89 |     70 |
+|             108 | Sneha        |    89 |      78 |    90 |      95 |     85 |
+|             109 | sheka        |    90 |      99 |    94 |      68 |     79 |
+|             110 | Rudhran      |    90 |      98 |    97 |      96 |     94 |
++-----------------+--------------+-------+---------+-------+---------+--------+
+
+select 
+     Register_number,
+     Student_name,
+     Tamil,
+     English,
+     Maths,
+     Science,
+     Social,
+     (Tamil + English + Maths + Science + Social) as total_marks,
+     (Tamil + English + Maths + Science + Social)/5 as average_marks,
+     CASE 
+        WHEN Tamil < 40 OR English < 40 OR Maths < 40 OR Science < 40 OR Social < 40 
+        THEN 'Fail'
+        ELSE 'Pass'
+    END AS result
+from Student_Marks;
+
+
++-----------------+--------------+-------+---------+-------+---------+--------+-------------+---------------+--------+
+| Register_number | Student_name | Tamil | English | Maths | Science | Social | total_marks | average_marks | result |
++-----------------+--------------+-------+---------+-------+---------+--------+-------------+---------------+--------+
+|             101 | Kiruthika    |    97 |      93 |    97 |      97 |     93 |         477 |       95.4000 | Pass   |
+|             102 | Nagu         |    90 |      98 |    95 |      97 |     99 |         479 |       95.8000 | Pass   |
+|             103 | Bala         |    89 |      90 |    96 |      96 |     99 |         470 |       94.0000 | Pass   |
+|             104 | Madhu        |    98 |      96 |    94 |      90 |     95 |         473 |       94.6000 | Pass   |
+|             105 | Guru         |    56 |      89 |    90 |      17 |     96 |         348 |       69.6000 | Fail   |
+|             106 | Subash       |    90 |      96 |    76 |      89 |     94 |         445 |       89.0000 | Pass   |
+|             107 | Vaishu       |    87 |      29 |    94 |      89 |     70 |         369 |       73.8000 | Fail   |
+|             108 | Sneha        |    89 |      78 |    90 |      95 |     85 |         437 |       87.4000 | Pass   |
+|             109 | sheka        |    90 |      99 |    94 |      68 |     79 |         430 |       86.0000 | Pass   |
+|             110 | Rudhran      |    90 |      98 |    97 |      96 |     94 |         475 |       95.0000 | Pass   |
++-----------------+--------------+-------+---------+-------+---------+--------+-------------+---------------+--------+
+
